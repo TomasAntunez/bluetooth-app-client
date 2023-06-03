@@ -7,9 +7,7 @@ export const AuthLayout: React.FC<{}> = () => {
   return (
     <>
       <Container maxWidth="sm">
-        <Box marginTop={10}>
-          <Outlet />
-        </Box>
+        <Outlet />
       </Container>
     </>
   )

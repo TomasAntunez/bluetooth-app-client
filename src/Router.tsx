@@ -12,6 +12,7 @@ export const AppRouter: React.FC<{}> = () => {
   return (
     <Router>
       <Routes>
+
         <Route path={ routes.AUTH } element={ <AuthLayout /> }>
           <Route index element={ <Navigate to={ routes.LOGIN } /> } />
 
@@ -24,6 +25,7 @@ export const AppRouter: React.FC<{}> = () => {
         <Route path={ routes.HOME } element={ <HomePage /> } />
 
         <Route path={ routes.ANY } element={ <Navigate to={ routes.HOME } /> } />
+        
       </Routes>
     </Router>
   )
