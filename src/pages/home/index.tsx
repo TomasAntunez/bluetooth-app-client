@@ -2,11 +2,22 @@ import React, { useState } from 'react'
 import { Button, Container, Paper } from '@mui/material';
 
 import { themePalette } from '../../config/theme';
+import { connectPhoneAndReturnBatteryLevel } from '../../services';
 
 
 export const HomePage: React.FC<{}> = () => {
 
   const [ visibleMainContent, setVisibleMainContent ] = useState<boolean>(false);
+
+  const handleClick = async () => {
+    try {
+      const phoneData = await connectPhoneAndReturnBatteryLevel();
+      setVisibleMainContent(true);
+      console.log(phoneData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   return (
@@ -26,7 +37,7 @@ export const HomePage: React.FC<{}> = () => {
           fontWeight: 'bold',
           fontSize: 20
         }}
-        onClick={ () => setVisibleMainContent(!visibleMainContent) }
+        onClick={ handleClick }
       >
         Connect Device
       </Button>

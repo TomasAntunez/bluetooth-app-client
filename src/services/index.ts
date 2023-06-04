@@ -27,3 +27,27 @@ export const authUser = ( { email, password }: LoginUserScheme ): void | never =
 
     if ( user.password !== password ) throw new Error( 'The password is wrong' );
 };
+
+
+export const connectPhoneAndReturnBatteryLevel = async () => {
+
+    const device = await navigator.bluetooth.requestDevice({
+        optionalServices: ["battery_service", "device_information"],
+        acceptAllDevices: true
+    });
+
+    let deviceName = device.gatt?.device.name;
+
+    const server = await device.gatt?.connect();
+
+    const batteryService = await server?.getPrimaryService("battery_service");
+    
+    const batteryLevelCharacteristic = await batteryService?.getCharacteristic("battery_level");
+
+    const batteryLevel = await batteryLevelCharacteristic?.readValue();
+
+    return {
+        deviceName,
+        batteryLevelPercent: await batteryLevel?.getUint8(0)
+    }
+}
